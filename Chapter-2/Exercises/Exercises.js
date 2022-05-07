@@ -11,15 +11,20 @@ triangle:
 #######
 */
 
-// Solution 1:
+// My Solution 1:
+let brick = '#';
+for (let i = 0; i < 7; i++){
+    console.log(brick);
+    brick += '#';
+}
+
+// Eloquent JS Solution 1:
+for (let line = "#"; line.length < 8; line += "#")
+  console.log(line);
 
 
 /*
-
-*/
-
-/*
-FizzBuzz
+Problem 2: FizzBuzz
 Write a program that uses console.log to print all the numbers from 1 to 100,
 with two exceptions. For numbers divisible by 3, print "Fizz" instead of the
 number, and for numbers divisible by 5 (and not 3), print "Buzz" instead.
@@ -31,21 +36,46 @@ a significant percentage of programmer candidates. So if you solved it, your
 labor market value just went up.)
 */
 
+// My Solution 2:
+for (let i = 1; i < 101; i++){
+    if (i % 15 == 0){
+        console.log("FizzBuzz");
+    } else if (i % 5 == 0){
+        console.log("Buzz");
+    } else if (i % 3 == 0){
+        console.log("Fizz");
+    } else {
+        console.log(i);
+    }
+}
+
+// Eloquent JS Solution 2:
+for (let n = 1; n <= 100; n++) {
+    let output = "";
+    if (n % 3 == 0) output += "Fizz";
+    if (n % 5 == 0) output += "Buzz";
+    console.log(output || n);
+}
+
 /*
 Chessboard
 Write a program that creates a string that represents an 8×8 grid, using newline
 characters to separate lines. At each position of the grid there is either a space
 or a "#" character. The characters should form a chessboard.
 Passing this string to console.log should show something like this:
+ # # # #
 # # # #
+ # # # #
 # # # #
+ # # # #
 # # # #
-# # # #
-# # # #
-# # # #
-# # # #
+ # # # #
 # # # #
 When you have a program that generates this pattern, define a binding size
 = 8 and change the program so that it works for any size, outputting a grid
 of the given width and height.
 */
+
+// My Solution 3:
+
+// Eloquent JS Solution 3:
