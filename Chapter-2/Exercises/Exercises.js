@@ -57,6 +57,7 @@ for (let n = 1; n <= 100; n++) {
     console.log(output || n);
 }
 
+
 /*
 Chessboard
 Write a program that creates a string that represents an 8×8 grid, using newline
@@ -77,5 +78,27 @@ of the given width and height.
 */
 
 // My Solution 3:
+const size = 8;
+let pattern = '';
+for (let i = 1; i <= size; i++){
+    for (let j = 1; j <= size; j++){
+        (i + j) % 2 == 0 ? pattern += '#' : pattern += ' ';
+    }
+    pattern += '\n';
+}
+console.log(pattern);
 
 // Eloquent JS Solution 3:
+let size_2 = 8;
+let board = "";
+for (let y = 0; y < size; y++) {
+  for (let x = 0; x < size; x++) {
+    if ((x + y) % 2 == 0) {
+      board += " ";
+    } else {
+      board += "#";
+    }
+  }
+  board += "\n";
+}
+console.log(board);
