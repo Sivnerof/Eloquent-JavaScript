@@ -6,8 +6,15 @@
 */
 
 // My Solution 1:
+function min(x, y){
+    return x < y ? x : y;
+}
 
 // Elegant JS Solution 1:
+function min(a, b) {
+    if (a < b) return a;
+    else return b;
+}
 
 /*
     * Problem 2: Recursion
@@ -24,9 +31,29 @@
     * Why? Can you think of a way to fix this?
 */
 
-// My Solution 2:
+// My Solution 2a:
+function isEvenA(num){
+    if (num === 0) return true;
+    else if (num === 1) return false;
+    else return isEvenA(num - 2);
+}
+// console.log(isEven(-1)); RangeError: Maximum call stack size exceeded
+
+// My Solution 2b:
+// (Handles Negatives)
+function isEvenB(num){
+    if(num === 0) return true;
+    else if (Math.abs(num) === 1) return false;
+    else return isEvenB(Math.abs(num - 2));
+}
 
 // Elegant JS Solution 2:
+function isEvenEJS(n) {
+    if (n == 0) return true;
+    else if (n == 1) return false;
+    else if (n < 0) return isEvenEJS(-n);
+    else return isEvenEJS(n - 2);
+}
 
 
 /*
@@ -47,5 +74,37 @@
 */
 
 // My Solution 3:
+function countBs(str){
+    let count = 0;
+    for (let i = 0; i < str.length; i++){
+        if (str[i] === 'B') count++;
+    }
+    return count;
+}
+
+function countChar(str, char){
+    let count = 0;
+    for (let i = 0; i < str.length; i++){
+        if (str[i] === char) count++;
+    }
+    return count;
+}
+
+function countBsRewritten(str){
+    return countChar(str, 'B');
+}
 
 // Elegant JS Solution 3:
+function countCharEJS(string, ch) {
+    let counted = 0;
+    for (let i = 0; i < string.length; i++) {
+      if (string[i] == ch) {
+        counted += 1;
+      }
+    }
+    return counted;
+}
+  
+function countBsEJS(string) {
+    return countCharEJS(string, "B");
+}
