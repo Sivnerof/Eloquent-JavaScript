@@ -239,5 +239,117 @@ function nthEJS(list, n) {
 */
 
 // My Solution 4:
+function deepEqual(value1, value2){
+    if (typeof value1 == "object" && value1 != null && typeof value2 == "object" && value2 != null){
+        const key1 = Object.keys(value1);
+        const key2 = Object.keys(value2);
+        if (key1.length !== key2.length) return false;
+        else {
+            for (let i = 0; i < key1.length; i++){
+                if (key1[i] !== key2[i]) return false;
+            }
+            for (let i = 0; i < key1.length; i++){
+                const test = deepEqual(value1[key1[i]], value2[key2[i]]);
+                if (test === false) return test;
+            }
+            return true;
+        }
+    } else return value1 === value2 ? true : false;
+}
 
 // EJS Solution 4:
+function deepEqualEJS(a, b) {
+    if (a === b) return true;
+    
+    if (a == null || typeof a != "object" ||
+        b == null || typeof b != "object") return false;
+  
+    let keysA = Object.keys(a), keysB = Object.keys(b);
+  
+    if (keysA.length != keysB.length) return false;
+  
+    for (let key of keysA) {
+      if (!keysB.includes(key) || !deepEqual(a[key], b[key])) return false;
+    }
+  
+    return true;
+}
+
+/**************************************************
+ * Tests For Deep Copy
+**************************************************/
+
+// Create Array Of Test Objects
+function arrayOfTests(){
+    // Same index different values, non nested. (false)
+    const obj1 = {1:"hello", 2:"world"};
+    const obj2 = {1:"good", 2:"morning"};
+
+    // Same values different index. (false)
+    const obj3 = {greetingA:"Welcome", greetingB:"Greetings"};
+    const obj4 = {1:"Welcome", 2:"Greetings"};
+
+    // Same Index Same Values, non nested. (true)
+    const obj5 = {3:"good", 2:"morning"};
+    const obj6 = {3:"good", 2:"morning"};
+
+    // Same index different values, nested. (false)
+    const obj7 = {1:"lorem", 2:"ipsum", 3: {4: "dolor", 5: "amet"}};
+    const obj8 = {1:"lorem", 2:"ipsum", 3: {4: "amet", 5: "dolor"}};
+
+    // Same values different index, nested. (false)
+    const obj9 = {1:"lorem", 2:"ipsum", 3: {10: "amet", 8: "dolor"}};
+    const obj10 = {1:"lorem", 2:"ipsum", 3: {9: "amet", 7: "dolor"}};
+
+    // Same values same index, nested. (true)
+    const obj11 = {1:"lorem", 2:"ipsum", 3: {9: "amet", 7: "dolor"}};
+    const obj12 = {1:"lorem", 2:"ipsum", 3: {9: "amet", 7: "dolor"}};
+
+    // Different key lengths, non nested. (false)
+    const obj13 = {1:"lorem"};
+    const obj14 = {1:"lorem", 2:"ipsum", 3: "amet"};
+
+    // Different key lengths, nested. (false)
+    const obj15 = {1:"lorem", 2:"ipsum", 3: {9: "amet", 7: "dolor", 6:"fidelis"}};
+    const obj16 = {1:"lorem", 2:"ipsum", 3: {9: "amet", 7: "dolor"}};
+
+    // One object null (false)
+    const obj17 = {3:"good", 2:"morning"};
+    const obj18 = null;
+
+    // Same Index, Same Values, Triple Nested (true)
+    const obj19 = {1:1, 2:2, 3:{4:4, 5:5, 6:{7:7, 8:8}}};
+    const obj20 = {1:1, 2:2, 3:{4:4, 5:5, 6:{7:7, 8:8}}};
+
+    // Same Index, Different Values, Tripple Nested (false)
+    const obj21 = {1:1, 2:2, 3:{4:4, 5:5, 6:{7:7, 8:8}}}
+    const obj22 = {1:1, 2:2, 3:{4:4, 5:5, 6:{7:8, 8:8}}};
+
+    // Populate Array
+    const testObjects = [];
+    for (let i = 1; i <= 22; i++){
+        testObjects.push(eval('obj' + i));
+    }
+    
+    return testObjects;
+}
+
+// Loop through array of objects and send each pair to deepEqual
+function callTestsOnDeepEqual(testArray){
+    let results = [];
+    for (let i = 0; i < testArray.length; i+=2){
+        results.push(deepEqual(testArray[i], testArray[i + 1]));
+    }
+    return results;
+}
+
+// Compare boolean array with expected outcome
+function compareResults(boolArray){
+    const expect = [false, false, true, false, false, true, false, false, false];
+    for (let i = 0; i < expect.length; i++){
+        if (expect[i] !== boolArray[i]) return 'Tests Failed';
+    }
+    return 'Tests Passed';
+}
+
+console.log(compareResults(callTestsOnDeepEqual(arrayOfTests())));
