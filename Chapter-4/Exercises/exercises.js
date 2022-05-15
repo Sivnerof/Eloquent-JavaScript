@@ -112,6 +112,7 @@ function reverseArrayInPlaceEJS(array) {
     return array;
 }
 
+
 /*
     Problem 3: A list
     Objects, as generic blobs of values,
@@ -152,8 +153,72 @@ function reverseArrayInPlaceEJS(array) {
 */
 
 // My Solution 3:
+function arrayToList(arr){
+    let list = {};
+    for (let i = arr.length - 1; i >= 0; i--){
+        let node = {};
+        node.value = arr[i];
+        if (Object.keys(list).length === 0) node.rest = null;
+        else node.rest = list;
+        list = node;
+    }
+    return list;
+}
+
+function listToArray(list){
+    let array = [];
+    for (let node = list; node; node = node.rest) array.push(node.value);
+    return array;
+}
+
+function prepend(elem, list){
+    const prependedObj = {};
+    prependedObj.value = elem;
+    prependedObj.rest = list;
+    return prependedObj;
+}
+
+function nth(list, number){
+    let position = 0;
+    for (let node = list; node; node = node.rest) {
+        if (position === number) return node;
+        else if (position > number) return undefined;
+        position++;
+    }
+}
+
+function nthRecursive(list, number){
+    if (list === null) return undefined;
+    else if (number === 0) return list;
+    else return nthRecursive(list.rest, number - 1);
+}
 
 // EJS Solution 3:
+function arrayToListEJS(array) {
+    let list = null;
+    for (let i = array.length - 1; i >= 0; i--) {
+      list = {value: array[i], rest: list};
+    }
+    return list;
+}
+  
+function listToArrayEJS(list) {
+    let array = [];
+    for (let node = list; node; node = node.rest) {
+      array.push(node.value);
+    }
+    return array;
+}
+  
+function prependEJS(value, list) {
+    return {value, rest: list};
+}
+  
+function nthEJS(list, n) {
+    if (!list) return undefined;
+    else if (n == 0) return list.value;
+    else return nth(list.rest, n - 1);
+}
 
 /*
     Problem 4: Deep comparison
