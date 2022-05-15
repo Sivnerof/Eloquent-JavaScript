@@ -77,9 +77,40 @@ function sumEJS(array) {
 */
 
 // My Solution 2:
+function reverseArray(arr){
+    let array = [];
+    for (let i = 0; i < arr.length; i++){
+        array.unshift(arr[i]);
+    }
+    return array;
+}
+
+function reverseArrayInPlace(arr){
+    const end = Math.floor(arr.length / 2);
+    const len = arr.length - 1;
+    for (let i = 0; i < end; i++){
+        [arr[i], arr[len - i]] = [arr[len - i], arr[i]]; 
+    }
+    return arr;
+}
 
 // EJS Solution 2:
-
+function reverseArrayEJS(array) {
+    let output = [];
+    for (let i = array.length - 1; i >= 0; i--) {
+      output.push(array[i]);
+    }
+    return output;
+}
+  
+function reverseArrayInPlaceEJS(array) {
+    for (let i = 0; i < Math.floor(array.length / 2); i++) {
+      let old = array[i];
+      array[i] = array[array.length - 1 - i];
+      array[array.length - 1 - i] = old;
+    }
+    return array;
+}
 
 /*
     Problem 3: A list
