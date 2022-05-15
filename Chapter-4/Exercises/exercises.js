@@ -20,8 +20,43 @@
 */
 
 // My Solution 1:
+function range(start, end, step = start < end ? 1 : -1){
+    let rangeList = [];
+    if (step > 0){
+        for (; start <= end; start += step) rangeList.push(start);
+    } else {
+        for (; start >= end; start += step) rangeList.push(start);
+    }
+    return rangeList;
+}
+
+function sum(arr){
+    let arrSum = 0;
+    for (let item of arr){
+        arrSum += item;
+    }
+    return arrSum;
+}
 
 // EJS Solution 1:
+function rangeEJS(start, end, step = start < end ? 1 : -1) {
+    let array = [];
+  
+    if (step > 0) {
+      for (let i = start; i <= end; i += step) array.push(i);
+    } else {
+      for (let i = start; i >= end; i += step) array.push(i);
+    }
+    return array;
+}
+  
+function sumEJS(array) {
+    let total = 0;
+    for (let value of array) {
+      total += value;
+    }
+    return total;
+}
 
 
 /*
@@ -65,12 +100,6 @@
             }
         }
     };
-
-    The resulting objects form a chain, like this:
-    value: 1
-    rest: value: 2
-    rest: value: 3
-    rest: null
 
     A nice thing about lists is that they can share parts of their structure.
     For example, if I create two new values {value: 0, rest: list}
