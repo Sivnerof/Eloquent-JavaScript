@@ -106,5 +106,5 @@ console.log(sortedYears);
 *************************************************/
 const charges = [50, 320, 75, 2.50, 1.00, 75, 3250];
 
-const totalCharges = charges.reduce((charge, total) => total += charge, 0);
+const totalCharges = charges.reduce((charge, total) => total += charge);
 console.log(totalCharges);
