@@ -7,8 +7,11 @@
 */
 
 // My Solution 1:
+const twoDimArray = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]];
+const flattenedArray = twoDimArray.reduce((prevValue, currValue) => prevValue.concat(currValue), []);
 
 // EJS Solution 1:
+console.log(twoDimArray.reduce((flat, current) => flat.concat(current), []));
 
 
 /*
