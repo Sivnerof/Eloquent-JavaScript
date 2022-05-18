@@ -27,8 +27,17 @@ console.log(twoDimArray.reduce((flat, current) => flat.concat(current), []));
 */
 
 // My Solution 2:
+function loop(val, test, update, body){
+    for (let i = val; !test(i); i = update(i)) body(i);
+}
+loop(0, n => n === 5 ? true : false, n => ++n, console.log);
 
 // EJS Solution 2:
+function loopEJS(start, test, update, body) {
+    for (let value = start; test(value); value = update(value)) {
+      body(value);
+    }
+}
 
 
 /*
