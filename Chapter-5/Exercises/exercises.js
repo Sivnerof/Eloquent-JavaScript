@@ -52,8 +52,38 @@ function loopEJS(start, test, update, body) {
 */
 
 // My Solution 3:
+function everyWithLoop(array, test){
+    for (let elem of array) if (!test(elem)) return false;
+    return true;
+}
+
+function everyWithSome(array, test){
+    return !array.some(elem => !test(elem));
+}
+
+function isEven(n){
+    return n % 2 === 0;
+}
 
 // EJS Solution 3:
+function everyWithLoopEJS(array, predicate) {
+    for (let element of array) {
+      if (!predicate(element)) return false;
+    }
+    return true;
+}
+
+function everyWithSomeEJS(array, predicate) {
+    return !array.some(element => !predicate(element));
+}
+
+console.log(everyWithLoopEJS([1, 3, 5], n => n < 10) === everyWithLoop([1, 3, 5], n => n < 10));
+console.log(everyWithLoopEJS([2, 4, 16], n => n < 10) === everyWithLoop([2, 4, 16], n => n < 10));
+console.log(everyWithLoopEJS([], n => n < 10) === everyWithLoop([], n => n < 10));
+
+console.log(everyWithSomeEJS([1, 3, 5], n => n < 10) === everyWithSome([1, 3, 5], n => n < 10));
+console.log(everyWithSomeEJS([2, 4, 16], n => n < 10) === everyWithSome([2, 4, 16], n => n < 10));
+console.log(everyWithSomeEJS([], n => n < 10) === everyWithSome([], n => n < 10));
 
 
 /*
