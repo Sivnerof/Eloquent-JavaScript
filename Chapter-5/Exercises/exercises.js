@@ -1,3 +1,5 @@
+require("../Notes/Examples/code/scripts.js");
+
 /*
     Problem 1: Flattening
 
@@ -77,14 +79,6 @@ function everyWithSomeEJS(array, predicate) {
     return !array.some(element => !predicate(element));
 }
 
-console.log(everyWithLoopEJS([1, 3, 5], n => n < 10) === everyWithLoop([1, 3, 5], n => n < 10));
-console.log(everyWithLoopEJS([2, 4, 16], n => n < 10) === everyWithLoop([2, 4, 16], n => n < 10));
-console.log(everyWithLoopEJS([], n => n < 10) === everyWithLoop([], n => n < 10));
-
-console.log(everyWithSomeEJS([1, 3, 5], n => n < 10) === everyWithSome([1, 3, 5], n => n < 10));
-console.log(everyWithSomeEJS([2, 4, 16], n => n < 10) === everyWithSome([2, 4, 16], n => n < 10));
-console.log(everyWithSomeEJS([], n => n < 10) === everyWithSome([], n => n < 10));
-
 
 /*
     Problem 4: Dominant writing direction
@@ -98,9 +92,54 @@ console.log(everyWithSomeEJS([], n => n < 10) === everyWithSome([], n => n < 10)
 */
 
 // My Solution 4:
+function characterScript(code) {
+    for (let script of SCRIPTS) {
+        if (script.ranges.some(([from, to]) => {
+            return code >= from && code < to;
+        })) {
+            return script;
+        }
+    }
+    return null;
+}
+
+function countBy(items, groupName) {
+    let counts = [];
+    for (let item of items) {
+        let name = groupName(item);
+        let known = counts.findIndex(c => c.name == name);
+        if (known == -1) {
+            counts.push({name, count: 1});
+        } else {
+            counts[known].count++;
+        }
+    }
+    return counts;
+}
+
+function dominantDirection(text){
+    let scripts = countBy(text, char => {
+        let script = characterScript(char.codePointAt(0));
+        return script ? script.direction : "none";
+    }).filter(({name}) => name != "none");
+    return scripts.reduce((a, b) => a.count > b.count ? a : b).name;
+}
+console.log(dominantDirection("العالم الثالث كأنها ممتلكاتها هي، بغض النظر عن وضع الناس في"));
+console.log(dominantDirection('英国的狗说"woof", 俄罗斯的狗说"тяв"'));
+console.log(dominantDirection("Hey, مساء الخير"));
+console.log(dominantDirection("hey, oh, oh, hey, Hey, مساء الخير hey"));
 
 // EJS Solution 4:
-
+function dominantDirectionEJS(text) {
+    let counted = countBy(text, char => {
+      let script = characterScript(char.codePointAt(0));
+      return script ? script.direction : "none";
+    }).filter(({name}) => name != "none");
+  
+    if (counted.length == 0) return "ltr";
+  
+    return counted.reduce((a, b) => a.count > b.count ? a : b).name;
+}
 
 
 /****************************************************************************************
